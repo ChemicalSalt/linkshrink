@@ -17,7 +17,7 @@ export default function UrlShortener() {
     }
 
     try {
-      const res = await fetch(`${API_BASE_URL}/api/urls`, {
+      const res = await fetch(`${API_BASE_URL}/shorten`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ longUrl }),
