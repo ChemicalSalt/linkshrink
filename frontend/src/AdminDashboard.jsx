@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 export default function AdminDashboard() {
   const [urls, setUrls] = useState([]);
@@ -15,7 +16,7 @@ export default function AdminDashboard() {
 
     async function fetchUrls() {
       try {
-        const res = await fetch("http://localhost:5000/api/admin/urls", {
+        const res = await fetch(`${API_BASE_URL}/api/admin/urls`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.status === 401) {

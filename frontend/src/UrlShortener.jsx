@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 export default function UrlShortener() {
   const [longUrl, setLongUrl] = useState("");
@@ -16,7 +17,7 @@ export default function UrlShortener() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/shorten", {
+      const res = await fetch(`${API_BASE_URL}/api/urls`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ longUrl }),

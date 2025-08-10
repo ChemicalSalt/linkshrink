@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 export default function AdminPage() {
   const [urls, setUrls] = useState([]);
@@ -8,7 +9,7 @@ export default function AdminPage() {
   useEffect(() => {
     async function fetchUrls() {
       try {
-        const res = await fetch("http://localhost:5000/api/admin/urls");
+        const res = await fetch(`${API_BASE_URL}/api/admin/urls`);
         if (!res.ok) throw new Error("Failed to fetch URLs");
         const data = await res.json();
         setUrls(data);
