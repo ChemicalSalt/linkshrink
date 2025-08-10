@@ -16,7 +16,7 @@ export default function AdminDashboard() {
 
     async function fetchUrls() {
       try {
-        const res = await fetch(`${API_BASE_URL}/admin/urls`, {
+        const res = await fetch(`${API_BASE_URL}/api/admin/urls`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.status === 401) {

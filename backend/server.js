@@ -3,29 +3,29 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import urlRoutes from "./routes/urlRoutes.js";
-import UrlModel from "./models/Url.js"; // Adjust path if needed
+import UrlModel from "./models/Url.js";
 
 dotenv.config();
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
 app.use(express.json());
 
-// Use API routes with /api prefix
 app.use("/api", urlRoutes);
 
-// Redirect route at root to handle short URLs
 app.get("/:shortcode", async (req, res) => {
   const { shortcode } = req.params;
   try {
     const record = await UrlModel.findOne({ short_code: shortcode });
-    if (record) {
-      record.visit_count = (record.visit_count || 0) + 1;
-      await record.save();
-      return res.redirect(record.original_url);
-    } else {
-      return res.status(404).send("URL not found");
-    }
+    if (!record) return res.status(404).send("URL not found");
+    record.visit_count = (record.visit_count || 0) + 1;
+    await record.save();
+    return res.redirect(record.original_url);
   } catch (error) {
     return res.status(500).send("Server error");
   }
@@ -33,8 +33,9 @@ app.get("/:shortcode", async (req, res) => {
 
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
+  .then(() => {
+    app.listen(process.env.PORT || 5000, () =>
+      console.log(`Server running on port ${process.env.PORT || 5000}`)
+    );
+  })
   .catch((err) => console.error("MongoDB error:", err));
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
