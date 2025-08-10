@@ -2,7 +2,8 @@
 
 This is a full-stack URL shortening app with React frontend and Node.js/Express backend deployed on Render. It supports shortening URLs and has an optional admin panel to view all shortened URLs. Environment variables configure API URLs and MongoDB connection.
 
-##Live Link
+## Live Link
+
 [LinkShrink](https://linkshrink-1z4u.onrender.com/)
 
 ## Setup & Deployment:
