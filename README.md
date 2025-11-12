@@ -17,11 +17,3 @@ This is a full-stack URL shortening app with React frontend and Node.js/Express 
 4. Frontend: cd frontend && npm install && npm run dev (locally)  
    Deploy frontend on Render connected to GitHub; set VITE_API_URL env var in Render.  
 5. Use deployed frontend URL to access the app. API calls use backend URL from env variable.
-
-## Notes:  
-- Whitelist Render IPs in MongoDB Atlas and your local IP.  
-- Update env vars locally and on Render for both backend and frontend.  
-- Frontend fetch calls use `import.meta.env.VITE_API_URL` to target backend.  
-- Rebuild & redeploy frontend after env changes.
-
-
